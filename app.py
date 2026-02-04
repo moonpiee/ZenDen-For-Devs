@@ -58,3 +58,163 @@ def page_void():
             .exit-button-container button {{
                 background-color: #181818 !important;
                 color: #606060 !important;
+                border: 1px solid #303030 !important;
+                font-size: 0.9rem;
+                padding: 0.3rem 0.8rem;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown('<div class="exit-button-container"></div>', unsafe_allow_html=True)
+
+def page_green():
+    """Calming green mode - easy on the eyes"""
+    css_key = f"green_style_{st.session_state.get('green_toggle', False)}"
+    if st.session_state.green_toggle:
+        st.markdown(
+            f"""
+            <style key="{css_key}">
+            body, div[data-testid="stAppViewContainer"], section.main, .main .block-container {{
+                background: linear-gradient(135deg, #1e4d2b 0%, #2d5a3d 50%, #1e4d2b 100%) !important;
+                color: #2d5a3d !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                animation: gentlePulse 8s ease-in-out infinite;
+            }}
+            @keyframes gentlePulse {{
+                0%, 100% {{ opacity: 1; }}
+                50% {{ opacity: 0.85; }}
+            }}
+            header[data-testid="stHeader"], footer {{
+                display: none !important;
+            }}
+            .zen-message {{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: rgba(144, 238, 144, 0.3);
+                font-size: 1.2rem;
+                font-style: italic;
+                text-align: center;
+                z-index: 1;
+            }}
+            </style>
+            <div class="zen-message">Let your eyes rest...</div>
+            """,
+            unsafe_allow_html=True
+        )
+
+def page_clouds():
+    """Drifting clouds animation"""
+    css_key = f"clouds_style_{st.session_state.get('clouds_toggle', False)}"
+    if st.session_state.clouds_toggle:
+        st.markdown(
+            f"""
+            <style key="{css_key}">
+            body, div[data-testid="stAppViewContainer"], section.main, .main .block-container {{
+                background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%) !important;
+                color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+            }}
+            header[data-testid="stHeader"], footer {{
+                display: none !important;
+            }}
+            .cloud {{
+                position: fixed;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 100px;
+                animation: drift linear infinite;
+            }}
+            .cloud:before, .cloud:after {{
+                content: '';
+                position: absolute;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 100px;
+            }}
+            .cloud1 {{
+                width: 100px;
+                height: 40px;
+                top: 20%;
+                left: -100px;
+                animation-duration: 35s;
+            }}
+            .cloud1:before {{
+                width: 50px;
+                height: 50px;
+                top: -25px;
+                left: 10px;
+            }}
+            .cloud1:after {{
+                width: 60px;
+                height: 40px;
+                top: -15px;
+                right: 10px;
+            }}
+            .cloud2 {{
+                width: 120px;
+                height: 50px;
+                top: 50%;
+                left: -120px;
+                animation-duration: 45s;
+                animation-delay: 5s;
+            }}
+            .cloud2:before {{
+                width: 60px;
+                height: 60px;
+                top: -30px;
+                left: 15px;
+            }}
+            .cloud2:after {{
+                width: 70px;
+                height: 50px;
+                top: -20px;
+                right: 15px;
+            }}
+            .cloud3 {{
+                width: 80px;
+                height: 35px;
+                top: 70%;
+                left: -80px;
+                animation-duration: 40s;
+                animation-delay: 10s;
+            }}
+            .cloud3:before {{
+                width: 40px;
+                height: 40px;
+                top: -20px;
+                left: 10px;
+            }}
+            .cloud3:after {{
+                width: 50px;
+                height: 35px;
+                top: -15px;
+                right: 10px;
+            }}
+            @keyframes drift {{
+                from {{ transform: translateX(0); }}
+                to {{ transform: translateX(calc(100vw + 200px)); }}
+            }}
+            </style>
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            """,
+            unsafe_allow_html=True
+        )
+
+def page_breathe():
+    """Box breathing animation - 4-4-4-4 pattern"""
+    css_key = f"breathe_style_{st.session_state.get('breathe_toggle', False)}"
+    if st.session_state.breathe_toggle:
+        st.markdown(
+            f"""
+            <style key="{css_key}">
+            body, div[data-testid="stAppViewContainer"], section.main, .main .block-container {{
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+                color: t
