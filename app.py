@@ -217,4 +217,73 @@ def page_breathe():
             <style key="{css_key}">
             body, div[data-testid="stAppViewContainer"], section.main, .main .block-container {{
                 background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
-                color: t
+                color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+            }}
+            header[data-testid="stHeader"], footer {{
+                display: none !important;
+            }}
+            .breathing-container {{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 1;
+            }}
+            .breathing-circle {{
+                width: 120px;
+                height: 120px;
+                border: 3px solid rgba(100, 200, 255, 0.6);
+                border-radius: 50%;
+                animation: breathe 16s ease-in-out infinite;
+                box-shadow: 0 0 30px rgba(100, 200, 255, 0.4);
+            }}
+            @keyframes breathe {{
+                0%, 100% {{
+                    transform: scale(1);
+                    border-color: rgba(100, 200, 255, 0.6);
+                }}
+                25% {{
+                    transform: scale(2);
+                    border-color: rgba(100, 200, 255, 0.9);
+                }}
+                50% {{
+                    transform: scale(2);
+                    border-color: rgba(100, 200, 255, 0.6);
+                }}
+                75% {{
+                    transform: scale(1);
+                    border-color: rgba(100, 200, 255, 0.4);
+                }}
+            }}
+            .breathing-text {{
+                margin-top: 100px;
+                font-size: 1.5rem;
+                color: rgba(100, 200, 255, 0.7);
+                font-weight: 300;
+                letter-spacing: 2px;
+            }}
+            .breathing-text::before {{
+                content: 'Breathe In';
+                animation: cycleText 16s ease-in-out infinite;
+            }}
+            @keyframes cycleText {{
+                0%, 24.99% {{ content: 'Breathe In'; }}
+                25%, 49.99% {{ content: 'Hold'; }}
+                50%, 74.99% {{ content: 'Breathe Out'; }}
+                75%, 100% {{ content: 'Hold'; }}
+            }}
+            </style>
+            <div class="breathing-container">
+                <div class="breathing-circle"></div>
+                <div class="breathing-text"></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
