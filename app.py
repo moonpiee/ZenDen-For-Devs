@@ -265,109 +265,56 @@ def page_breathe():
         unsafe_allow_html=True
     )
 
-# Initialize session state
-if 'void_toggle' not in st.session_state:
-    st.session_state.void_toggle = False
-if 'green_toggle' not in st.session_state:
-    st.session_state.green_toggle = False
-if 'clouds_toggle' not in st.session_state:
-    st.session_state.clouds_toggle = False
-if 'breathe_toggle' not in st.session_state:
-    st.session_state.breathe_toggle = False
+# Initialize session state for active mode
+if 'active_mode' not in st.session_state:
+    st.session_state.active_mode = None
 
 # Check if any mode is active
-any_mode_active = (st.session_state.void_toggle or 
-                   st.session_state.green_toggle or 
-                   st.session_state.clouds_toggle or 
-                   st.session_state.breathe_toggle)
-
-# Only show toggles if no mode is active
-if not any_mode_active:
+if st.session_state.active_mode is None:
+    # Show all mode selection toggles
     st.markdown("### Choose Your Zen Mode")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        void_toggle = st.toggle(
-            "⚫ The Void",
-            key="enable_void",
-            value=st.session_state.void_toggle,
-            help="Pure black nothingness. Stare into the void."
-        )
+        if st.button("⚫ The Void", use_container_width=True, help="Pure black nothingness. Stare into the void."):
+            st.session_state.active_mode = 'void'
+            st.rerun()
         
-        clouds_toggle = st.toggle(
-            "☁️ Watch Clouds",
-            key="enable_clouds",
-            value=st.session_state.clouds_toggle,
-            help="Gentle drifting clouds across a blue sky."
-        )
+        if st.button("☁️ Watch Clouds", use_container_width=True, help="Gentle drifting clouds across a blue sky."):
+            st.session_state.active_mode = 'clouds'
+            st.rerun()
     
     with col2:
-        green_toggle = st.toggle(
-            "🌿 Stare at Green",
-            key="enable_green",
-            value=st.session_state.green_toggle,
-            help="Calming green hues, easy on your tired eyes."
-        )
+        if st.button("🌿 Stare at Green", use_container_width=True, help="Calming green hues, easy on your tired eyes."):
+            st.session_state.active_mode = 'green'
+            st.rerun()
         
-        breathe_toggle = st.toggle(
-            "🫁 Breathe",
-            key="enable_breathe",
-            value=st.session_state.breathe_toggle,
-            help="Box breathing exercise - follow the expanding circle."
-        )
+        if st.button("🫁 Breathe", use_container_width=True, help="Box breathing exercise - follow the expanding circle."):
+            st.session_state.active_mode = 'breathe'
+            st.rerun()
     
-    # Update session state
-    st.session_state.void_toggle = void_toggle
-    st.session_state.green_toggle = green_toggle
-    st.session_state.clouds_toggle = clouds_toggle
-    st.session_state.breathe_toggle = breathe_toggle
-else:
-    # Show single toggle for the active mode
-    if st.session_state.void_toggle:
-        void_toggle = st.toggle(
-            "⚫ Exit The Void",
-            key="exit_void",
-            value=True,
-            help="Click to return to mode selection"
-        )
-        st.session_state.void_toggle = void_toggle
-        
-    elif st.session_state.green_toggle:
-        green_toggle = st.toggle(
-            "🌿 Exit Green Mode",
-            key="exit_green",
-            value=True,
-            help="Click to return to mode selection"
-        )
-        st.session_state.green_toggle = green_toggle
-        
-    elif st.session_state.clouds_toggle:
-        clouds_toggle = st.toggle(
-            "☁️ Exit Cloud Mode",
-            key="exit_clouds",
-            value=True,
-            help="Click to return to mode selection"
-        )
-        st.session_state.clouds_toggle = clouds_toggle
-        
-    elif st.session_state.breathe_toggle:
-        breathe_toggle = st.toggle(
-            "🫁 Exit Breathing Mode",
-            key="exit_breathe",
-            value=True,
-            help="Click to return to mode selection"
-        )
-        st.session_state.breathe_toggle = breathe_toggle
-
-# Render the appropriate page
-if st.session_state.void_toggle:
-    page_void()
-elif st.session_state.green_toggle:
-    page_green()
-elif st.session_state.clouds_toggle:
-    page_clouds()
-elif st.session_state.breathe_toggle:
-    page_breathe()
-else:
     main_page()
+
+else:
+    # Show exit button for active mode
+    mode_names = {
+        'void': '⚫ Exit The Void',
+        'green': '🌿 Exit Green Mode',
+        'clouds': '☁️ Exit Cloud Mode',
+        'breathe': '🫁 Exit Breathing Mode'
+    }
+    
+    if st.button(mode_names[st.session_state.active_mode], use_container_width=True):
+        st.session_state.active_mode = None
+        st.rerun()
+    
+    # Render the active mode
+    if st.session_state.active_mode == 'void':
+        page_void()
+    elif st.session_state.active_mode == 'green':
+        page_green()
+    elif st.session_state.active_mode == 'clouds':
+        page_clouds()
+    elif st.session_state.active_mode == 'breathe':
+        page_breathe()
