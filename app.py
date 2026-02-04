@@ -11,7 +11,7 @@ st.set_page_config(
 
 def main_page():
     st.title("ZenDen for Devs 🧘💻")
-    st.markdown("Welcome! Choose a relaxation mode below.")
+    st.markdown("Welcome! Choose a relaxation mode.")
     
     st.markdown(
         """
